@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" translate="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JellyWar!</title>
+<meta name="description" content="JellyWar! is coming very soon.">
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Figtree:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e1630;--bg2:#1b2a5a;--ink:#eef2ff;--dim:#9aa6d6;--red:#ff3b4e}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:radial-gradient(ellipse at 50% 30%,var(--bg2),var(--bg) 70%);color:var(--ink);font-family:Figtree,system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:16px}
+h1{font-family:'Bagel Fat One',Figtree,sans-serif;font-weight:400;font-size:clamp(56px,13vw,140px);margin:8px 0 0;letter-spacing:1px;text-shadow:0 6px 0 rgba(0,0,0,.35)}
+h1 b{color:var(--red);font-weight:400}
+p.soon{font-size:clamp(20px,4vw,30px);font-weight:700;margin:10px 0 4px}
+p.small{color:var(--dim);font-size:14px;margin:26px 0 0}
+canvas{width:min(260px,60vw);height:auto;display:block;margin:0 auto}
+</style></head><body>
+<main>
+<canvas id="c" width="520" height="360" aria-hidden="true"></canvas>
+<h1>Jelly<b>War!</b></h1>
+<p class="soon">Coming very soon.</p>
+<p class="small">A fan-made game by lorange99.</p>
+</main>
+<script>
+var c=document.getElementById('c'),x=c.getContext('2d'),t0=performance.now();
+function jelly(cx,by,s,col,dark,t,ph){var h=(t+ph)%1,j=Math.max(0,Math.sin(h*Math.PI)),y=by-j*60*s,sq=1+0.12*Math.cos(h*Math.PI*2)*(1-j);
+ x.save();x.fillStyle='rgba(0,0,0,'+(0.28-0.15*j)+')';x.beginPath();x.ellipse(cx,by+6*s,48*s*(1-0.3*j),9*s*(1-0.3*j),0,0,7);x.fill();x.restore();
+ x.save();x.translate(cx,y);x.scale(sq,1/sq);var w=50*s,hh=78*s;
+ var g=x.createLinearGradient(0,-hh,0,0);g.addColorStop(0,col);g.addColorStop(1,dark);x.fillStyle=g;x.strokeStyle='rgba(0,0,0,.35)';x.lineWidth=3*s;
+ x.beginPath();x.moveTo(-w,0);x.lineTo(-w,-hh*0.62);x.quadraticCurveTo(-w,-hh,0,-hh);x.quadraticCurveTo(w,-hh,w,-hh*0.62);x.lineTo(w,0);x.quadraticCurveTo(0,8*s,-w,0);x.closePath();x.fill();x.stroke();
+ x.fillStyle='rgba(255,255,255,.35)';x.beginPath();x.ellipse(-w*0.45,-hh*0.72,w*0.18,hh*0.12,-0.4,0,7);x.fill();
+ var ey=-hh*0.55,blink=((t*0.6+ph)%1)<0.04;
+ for(var k=-1;k<=1;k+=2){x.fillStyle='#fff';x.beginPath();x.ellipse(k*w*0.32,ey,w*0.22,blink?w*0.03:w*0.26,0,0,7);x.fill();if(!blink){x.fillStyle='#111';x.beginPath();x.arc(k*w*0.32+w*0.05,ey+w*0.04,w*0.11,0,7);x.fill();}}
+ x.restore();}
+function f(n){var t=(n-t0)/1000;x.clearRect(0,0,520,360);
+ jelly(130,320,0.85,'#ff6070','#c01828',t*0.9,0.5);jelly(390,320,0.85,'#ffd24a','#d49a00',t*0.9,0.25);jelly(260,330,1.15,'#55b8ff','#1460c8',t*0.9,0);
+ requestAnimationFrame(f);}
+requestAnimationFrame(f);
+</script>
+</body></html>
